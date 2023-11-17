@@ -1501,6 +1501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ccea55b10e5f6a418e0403967d10f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftArm: {fileID: 0}
+  mainCam: {fileID: 519420031}
+  mousPos: {x: 0, y: 0, z: 0}
 --- !u!1 &574474909
 GameObject:
   m_ObjectHideFlags: 0
