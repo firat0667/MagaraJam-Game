@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PlayerHealth
+  - Bullet
+  - RocketMissile
+  - FireBullet
   layers:
   - Default
   - TransparentFX
@@ -11,10 +15,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - PlayerHealth
+  - Player
+  - EnemyHealth
+  - Bullet
   - 
   - 
   - 
@@ -38,6 +42,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Road
+    uniqueID: 4185641471
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2423779449
+    locked: 0
+  - name: Move
+    uniqueID: 1056384973
     locked: 0
