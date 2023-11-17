@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class Ziplama : MonoBehaviour
 {
-    [SerializeField] ZiplamaBari ZiplamaBari;
     [SerializeField] Rigidbody2D rigidbody2;
-    float ZiplamaSeviyesi;
-    private void Start()
+    public void Update()
     {
-        ZiplamaBari = GetComponent<ZiplamaBari>();
+        jump();
     }
-    private void Update()
-    {
-        ZiplamaSeviyesi = ZiplamaBari.ZiplamaSeviyesi;
-    }
+
     public void jump()
     {
         if (Input.GetKeyUp(KeyCode.A))
         {
-            rigidbody2.AddForce(new Vector2(0, ZiplamaSeviyesi));
+            rigidbody2.AddForce(new Vector2(0, ZiplamaBari.ZiplamaSeviyesi*20));
+            ZiplamaBari.ZiplamaSeviyesi = 0;
         }
     }
 }
