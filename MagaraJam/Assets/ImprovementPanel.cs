@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class ImprovementPanel : MonoBehaviour
 {
@@ -26,18 +27,35 @@ public class ImprovementPanel : MonoBehaviour
 
 
     private int ScrapCount;
+    private int TabCount;
    
 
 
     void Start()
     {
-        ScrapCount = 100;       
+        ScrapCount = 100;
+        TabCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ScrapText.text = ScrapCount.ToString();
+            checkPanel();
+            ScrapText.text = ScrapCount.ToString();
+    }
+
+    private void checkPanel()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab) & TabCount % 2 == 0)
+        {
+            gameObject.SetActive(true);
+            TabCount++;
+        }
+        else if (Input.GetKeyDown(KeyCode.Tab) & TabCount % 2 == 1)
+        {
+            gameObject.SetActive(false);
+            TabCount++;
+        }
     }
 
     public void Head_Update()
