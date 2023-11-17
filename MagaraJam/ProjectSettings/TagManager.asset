@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - RocketMissile
   - FireBullet
+  - Zemin
   layers:
   - Default
   - TransparentFX
