@@ -681,7 +681,6 @@ MonoBehaviour:
   artisSeviyesi: 55
   GroundCheck: 0
   _blueBar: {fileID: 397714376}
-  JumpBar: {fileID: 1444887811}
 --- !u!1 &1067756459
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,11 +951,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1444887811 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6035277101136162582, guid: af00a3a870bc7c244b101803b3841522, type: 3}
-  m_PrefabInstance: {fileID: 651020880550667514}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1465603089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1474,14 @@ PrefabInstance:
     - target: {fileID: 4529186016788498665, guid: af00a3a870bc7c244b101803b3841522, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641305391685670521, guid: af00a3a870bc7c244b101803b3841522, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649580113148044220, guid: af00a3a870bc7c244b101803b3841522, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7907007420998350674, guid: af00a3a870bc7c244b101803b3841522, type: 3}
       propertyPath: m_RootOrder
