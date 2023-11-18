@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour
         if (targetTransform)
         {
 
-            if (Vector3.Distance(targetTransform.position, transform.position) > 1f)
+            if (Vector3.Distance(targetTransform.position, transform.position) > 1.5f)
             {
 
                 _enemy_Movement.Move(targetTransform);
@@ -77,9 +77,14 @@ public class EnemyController : MonoBehaviour
                 {
 
                     _enemy_Animation.Attack();
-                    PlayerHealth.Instace.DealDamage(EnemyDamage.damage);
-                    StartCoroutine(DeactivateZombie());
-                    canAttack = false;
+
+                    _timerAttack += Time.deltaTime;
+
+                    if (_timerAttack > 0.45f)
+                    {
+                        _timerAttack = 0f;
+                        AudioManager.instance.ZombieAttackSound();
+                    }
 
 
                 }
@@ -100,7 +105,6 @@ public class EnemyController : MonoBehaviour
     {
         ActivateDeadEffect();
         AudioManager.instance.ZombieDieSound();
-        _rigidbody2D.GetComponent<Rigidbody2D>().gravityScale=1.0f;
         _collider2D.isTrigger=true;
         yield return new WaitForSeconds(1f);
 
