@@ -77,8 +77,6 @@ public class GameplayController : MonoBehaviour
 
         if (gameGoal == GameGoal.TIMER_COUNTDOWN || gameGoal == GameGoal.DEFEND_FENCE)
         {
-
-            Timer_Text = GameObject.Find("Timer Counter").GetComponent<Text>();
             Timer_Text.text = timer_Count.ToString();
 
             InvokeRepeating("TimerCountdown", 0f, 1f);
