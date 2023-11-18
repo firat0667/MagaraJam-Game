@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SmartPool : MonoBehaviour
 {
-
     public static SmartPool instance;
 
     [Header("List")]
@@ -14,8 +14,9 @@ public class SmartPool : MonoBehaviour
 
     [Header("Elements")]
     public GameObject[] Enemies;
-    [Header("Settings")]
-    private float _y_Spawn_Pos_Min = -3.7f, y_Spawn_Pos_Max = -0.36f;
+    public GameObject[] FlyingEnemies;
+  [SerializeField]  private float _y_Spawn_Pos_Min = 0, y_Spawn_Pos_Max = 2f;
+  [SerializeField]  private float _groundYpos;
     private Camera _mainCamera;
 
     void Awake()
@@ -27,7 +28,7 @@ public class SmartPool : MonoBehaviour
     {
         _mainCamera = Camera.main;
 
-        InvokeRepeating("StartSpawningZombies", 1f, Random.Range(1f, 5f));
+        InvokeRepeating("StartSpawningEnemies", 3f, Random.Range(1f, 5f));
 
     }
 
@@ -198,7 +199,7 @@ public class SmartPool : MonoBehaviour
 
     }
 
-    void StartSpawningZombies()
+    void StartSpawningEnemies()
     {
 
         if (GameplayController.instance.gameGoal == GameGoal.DEFEND_FENCE)
@@ -207,11 +208,19 @@ public class SmartPool : MonoBehaviour
             float xPos = _mainCamera.transform.position.x;
             xPos += 15f;
 
-            float yPos = Random.Range(_y_Spawn_Pos_Min, y_Spawn_Pos_Max);
-
-            Instantiate(Enemies[Random.Range(0, Enemies.Length)],
-                        new Vector3(xPos, yPos, 0f), Quaternion.identity);
-
+            float a = Random.Range(0,2);
+            if (a == 0)
+            {
+                float flyingPos = Random.Range(_y_Spawn_Pos_Min, y_Spawn_Pos_Max);
+                Instantiate(FlyingEnemies[Random.Range(0, Enemies.Length)],
+                new Vector3(xPos, flyingPos, 0f), Quaternion.identity);
+            }
+            else
+            {
+                float groundpos = _groundYpos;
+                Instantiate(Enemies[Random.Range(0, Enemies.Length)],
+                new Vector3(xPos, groundpos, 0f), Quaternion.identity);
+            }
         }
 
         if (GameplayController.instance.gameGoal == GameGoal.KILL_ENEMY ||

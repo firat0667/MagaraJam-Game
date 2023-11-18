@@ -5,20 +5,20 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private EnemyMovement _enemy_Movement;
-    private EnemyAnimation _zombie_Animation;
+    private EnemyAnimation _enemy_Animation;
 
     private Transform targetTransform;
     private bool canAttack;
-    private bool zombie_Alive;
+    private bool _enemy_Alive;
 
     public GameObject damage_Collider;
 
-    public int zombieHealth = 10;
-    public GameObject[] fxDead;
+    public int EnemyHealth = 10;
+    public GameObject fxDead;
 
-    private float timerAttack;
+    private float _timerAttack;
 
-    private int fireDamage = 10;
+    private int _fireDamage = 10;
 
     public GameObject coinCollectable;
 
@@ -27,9 +27,9 @@ public class EnemyController : MonoBehaviour
     {
 
         _enemy_Movement = GetComponent<EnemyMovement>();
-        _zombie_Animation = GetComponent<EnemyAnimation>();
+        _enemy_Animation = GetComponent<EnemyAnimation>();
 
-        zombie_Alive = true;
+        _enemy_Alive = true;
 
         if (GameplayController.instance.EnemyGoal == EnemyGoal.PLAYER)
         {
@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (zombie_Alive)
+        if (_enemy_Alive)
         {
             CheckDistance();
         }
@@ -73,13 +73,13 @@ public class EnemyController : MonoBehaviour
                 if (canAttack)
                 {
 
-                    _zombie_Animation.Attack();
+                    _enemy_Animation.Attack();
 
-                    timerAttack += Time.deltaTime;
+                    _timerAttack += Time.deltaTime;
 
-                    if (timerAttack > 0.45f)
+                    if (_timerAttack > 0.45f)
                     {
-                        timerAttack = 0f;
+                        _timerAttack = 0f;
                         AudioManager.instance.ZombieAttackSound();
                     }
 
@@ -91,23 +91,18 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    public void ActivateDeadEffect(int index)
+    public void ActivateDeadEffect()
     {
-        fxDead[index].SetActive(true);
-
-        if (fxDead[index].GetComponent<ParticleSystem>())
-        {
-            fxDead[index].GetComponent<ParticleSystem>().Play();
-        }
+        Instantiate(fxDead,transform.position,Quaternion.identity);
 
     }
 
     IEnumerator DeactivateZombie()
     {
-
+        ActivateDeadEffect();
         AudioManager.instance.ZombieDieSound();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         GameplayController.instance.ZombieDied();
 
@@ -121,15 +116,15 @@ public class EnemyController : MonoBehaviour
 
     public void DealDamage(int damage)
     {
-        _zombie_Animation.Hurt();
+        _enemy_Animation.Hurt();
 
-        zombieHealth -= damage;
+        EnemyHealth -= damage;
 
-        if (zombieHealth <= 0)
+        if (EnemyHealth <= 0)
         {
 
-            zombie_Alive = false;
-            _zombie_Animation.Dead();
+            _enemy_Alive = false;
+            _enemy_Animation.Dead();
 
             StartCoroutine(DeactivateZombie());
         }
@@ -160,20 +155,20 @@ public class EnemyController : MonoBehaviour
         if (target.tag == TagManager.BULLET_TAG || target.tag == TagManager.ROCKET_MISSILE_TAG)
         {
 
-            _zombie_Animation.Hurt();
+            _enemy_Animation.Hurt();
 
-            zombieHealth -= target.gameObject.GetComponent<BulletController>().Damage;
-
+            EnemyHealth -= target.gameObject.GetComponent<BulletController>().Damage;
+           
             if (target.tag == TagManager.ROCKET_MISSILE_TAG)
             {
                 target.gameObject.GetComponent<BulletController>().ExplosionFX();
             }
 
-            if (zombieHealth <= 0)
+            if (EnemyHealth <= 0)
             {
 
-                zombie_Alive = false;
-                _zombie_Animation.Dead();
+                _enemy_Alive = false;
+                _enemy_Animation.Dead();
 
                 StartCoroutine(DeactivateZombie());
 
@@ -186,14 +181,14 @@ public class EnemyController : MonoBehaviour
         if (target.tag == TagManager.FIRE_BULLET_TAG)
         {
 
-            _zombie_Animation.Hurt();
+            _enemy_Animation.Hurt();
 
-            zombieHealth -= fireDamage;
+            EnemyHealth -= _fireDamage;
 
-            if (zombieHealth <= 0)
+            if (EnemyHealth <= 0)
             {
-                zombie_Alive = false;
-                _zombie_Animation.Dead();
+                _enemy_Alive = false;
+                _enemy_Animation.Dead();
 
                 StartCoroutine(DeactivateZombie());
             }
