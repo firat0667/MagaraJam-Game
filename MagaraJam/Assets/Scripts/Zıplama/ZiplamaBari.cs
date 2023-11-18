@@ -6,12 +6,13 @@ public class ZiplamaBari : MonoBehaviour
 {
     public static ZiplamaBari Instance;
 
-    public  float maxZiplama = 100;
-    public  float  ZiplamaSeviyesi = 0;
+    float maxZiplama = 100;
+    float ZiplamaSeviyesi = 0;
     float GercekScale;
-    float animasyonYavasligi = 20;
-    public  float artisSeviyesi = 0.5f;
+    float animasyonYavasligi = 1f;
+    float artisSeviyesi = 80f;
     [SerializeField] private bool GroundCheck = false;
+    [SerializeField] Animasyon animasyon;
     private bool _isJumpable;
     [SerializeField] private GameObject _blueBar;
     private Rigidbody2D _rigidbody2;
@@ -82,6 +83,8 @@ public class ZiplamaBari : MonoBehaviour
         {
             _rigidbody2.AddForce(new Vector2(0,ZiplamaSeviyesi * 20));
             ZiplamaSeviyesi = 0;
+            //jumpAnimasyonu();
+            animasyon.jumpAnimation(true);
         }
     }
 
@@ -97,8 +100,15 @@ public class ZiplamaBari : MonoBehaviour
         if (collision.gameObject.CompareTag("Zemin"))
         {
             GroundCheck = false;
+            animasyon.jumpAnimation(false);
         }
     }
+    //IEnumerator jumpAnimasyonu()
+    //{
+    //    animasyon.jumpAnimation(true); 
+    //    yield return new WaitForSeconds(ZiplamaSeviyesi);
+    //    animasyon.jumpAnimation(false);
+    //}
 }
 
 
