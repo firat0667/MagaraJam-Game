@@ -32,7 +32,7 @@ public class ZiplamaBari : MonoBehaviour
     {
         JumpCalculate();
         jump();
-        if (Input.GetKey(KeyCode.A)&&!GroundCheck)
+        if (Input.GetKey(KeyCode.Space)&&!GroundCheck)
         {
             JumpIncrease();
             //GroundCheck = true;
@@ -58,8 +58,9 @@ public class ZiplamaBari : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Zemin") && !GroundCheck)
         {
+            _blueBar.SetActive(true);
             _isJumpable = true;
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.Space))
             {
                 JumpIncrease();
                 Debug.Log(ZiplamaSeviyesi);
@@ -77,7 +78,7 @@ public class ZiplamaBari : MonoBehaviour
 
     public void jump()
     {
-        if (Input.GetKeyUp(KeyCode.A)&&_isJumpable)
+        if (Input.GetKeyUp(KeyCode.Space)&&_isJumpable)
         {
             _rigidbody2.AddForce(new Vector2(0,ZiplamaSeviyesi * 20));
             ZiplamaSeviyesi = 0;

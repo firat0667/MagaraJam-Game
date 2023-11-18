@@ -21,13 +21,16 @@ public class EnemyController : MonoBehaviour
     private int _fireDamage = 10;
 
     public GameObject coinCollectable;
-
+    private Rigidbody2D _rigidbody2D;
+    private Collider2D _collider2D;
     // Use this for initialization
     void Start()
     {
 
         _enemy_Movement = GetComponent<EnemyMovement>();
         _enemy_Animation = GetComponent<EnemyAnimation>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _collider2D = GetComponent<Collider2D>();
 
         _enemy_Alive = true;
 
@@ -93,15 +96,16 @@ public class EnemyController : MonoBehaviour
 
     public void ActivateDeadEffect()
     {
-        Instantiate(fxDead,transform.position,Quaternion.identity);
-
+     GameObject go=Instantiate(fxDead,transform.position,Quaternion.identity);
+        Destroy(go,1f);
     }
 
     IEnumerator DeactivateZombie()
     {
         ActivateDeadEffect();
         AudioManager.instance.ZombieDieSound();
-
+        _rigidbody2D.GetComponent<Rigidbody2D>().gravityScale=1.0f;
+        _collider2D.isTrigger=true;
         yield return new WaitForSeconds(1f);
 
         GameplayController.instance.ZombieDied();
