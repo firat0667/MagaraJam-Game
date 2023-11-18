@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class CoolDownMEthod : MonoBehaviour
 {
     [SerializeField] Image imageCoolDown;
-
-    private bool isCoolDown = false;
-    private float time = 0f;
-    private float timer = 20f;
+    public float time = 0f;
+    private float timer = 4f;
+    public bool skillAvaliable = false;
 
     private void Start()
     {
@@ -19,14 +19,27 @@ public class CoolDownMEthod : MonoBehaviour
 
     private void Update()
     {
-        time += 1f*Time.deltaTime;
+        time += 1f * Time.deltaTime;
         Debug.Log(time);
 
-        imageCoolDown.fillAmount -= time/timer * Time.deltaTime;
+        imageCoolDown.fillAmount -= time * Time.deltaTime / timer/2;
 
         if(time >= timer)
         {
             time = timer;
-        }                    
+            skillAvaliable = true;
+
+        }
+        if (time < timer)
+        {
+            skillAvaliable = false;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.E) && skillAvaliable == true) 
+        {
+           imageCoolDown.fillAmount = 1f;
+
+        }
     }
 }
