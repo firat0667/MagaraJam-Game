@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
-using System;
+
 
 public class ImprovementPanel : MonoBehaviour
 {
@@ -34,13 +33,13 @@ public class ImprovementPanel : MonoBehaviour
     void Start()
     {
         ScrapCount = 100;
-        TabCount = 0;
+        //TabCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-            checkPanel();
+           // checkPanel();
             ScrapText.text = ScrapCount.ToString();
     }
 
