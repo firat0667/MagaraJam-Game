@@ -360,11 +360,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f65a227c57b8545ab900370e98b56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage_Collider: {fileID: 4825055025454240376}
+  Damage_Collider: {fileID: 0}
   EnemyHealth: 10
   fxDead: {fileID: 1343858734372316, guid: 9a55c3ad4a31c81468287eb939ea1fa5, type: 3}
   coinCollectable: {fileID: 762655481749559548, guid: 9c70861d7d33c3f46b62bb8243326f0a, type: 3}
-  rigidbody2D: {fileID: 6260963026730233191}
+  EnemyDamage: {fileID: 7977275128233727698}
 --- !u!50 &6260963026730233191
 Rigidbody2D:
   serializedVersion: 4
