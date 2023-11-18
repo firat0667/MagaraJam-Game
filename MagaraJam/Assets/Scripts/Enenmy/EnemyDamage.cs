@@ -34,7 +34,7 @@ public class EnemyDamage : MonoBehaviour
 
             if (target.tag == TagManager.PLAYER_HEALTH_TAG)
             {
-
+                Debug.Log("asdasdsa");
                 target.GetComponent<PlayerHealth>().DealDamage(damage);
 
             }

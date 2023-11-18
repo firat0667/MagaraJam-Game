@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     private bool canAttack;
     private bool _enemy_Alive;
 
-    public GameObject damage_Collider;
+    public GameObject Damage_Collider;
 
     public int EnemyHealth = 10;
     public GameObject fxDead;
@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     public GameObject coinCollectable;
     private Rigidbody2D _rigidbody2D;
     private Collider2D _collider2D;
+    public EnemyDamage EnemyDamage;
     // Use this for initialization
     void Start()
     {
@@ -64,11 +65,10 @@ public class EnemyController : MonoBehaviour
         if (targetTransform)
         {
 
-            if (Vector3.Distance(targetTransform.position, transform.position) > 1.5f)
+            if (Vector3.Distance(targetTransform.position, transform.position) > 1f)
             {
 
                 _enemy_Movement.Move(targetTransform);
-
             }
             else
             {
@@ -77,14 +77,10 @@ public class EnemyController : MonoBehaviour
                 {
 
                     _enemy_Animation.Attack();
+                    PlayerHealth.Instace.DealDamage(EnemyDamage.damage);
+                    StartCoroutine(DeactivateZombie());
+                    canAttack = false;
 
-                    _timerAttack += Time.deltaTime;
-
-                    if (_timerAttack > 0.45f)
-                    {
-                        _timerAttack = 0f;
-                        AudioManager.instance.ZombieAttackSound();
-                    }
 
                 }
 
@@ -137,12 +133,12 @@ public class EnemyController : MonoBehaviour
 
     void ActivateDamagePoint()
     {
-        damage_Collider.SetActive(true);
+        Damage_Collider.SetActive(true);
     }
 
     void DeactivateDamagePoint()
     {
-        damage_Collider.SetActive(false);
+        Damage_Collider.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D target)

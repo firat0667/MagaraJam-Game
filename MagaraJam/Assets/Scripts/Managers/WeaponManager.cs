@@ -22,7 +22,7 @@ public class WeaponManager : MonoBehaviour
     private bool _isShooting;
 
     public GameObject MeleeDamagePoint;
-
+    
     void Awake()
     {
          playerAnim = GetComponent<PlayerAnimations>();

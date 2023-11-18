@@ -6,10 +6,14 @@ public class EnemyAnimation : MonoBehaviour
 {
 
     private Animator _anim;
-
     void Awake()
     {
         _anim = GetComponent<Animator>();
+       
+    }
+    private void Start()
+    {
+
     }
 
     public void Attack()
