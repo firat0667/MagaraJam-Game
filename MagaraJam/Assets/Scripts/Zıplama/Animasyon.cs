@@ -14,4 +14,8 @@ public  class Animasyon : MonoBehaviour
     {          
         _anim.SetBool(TagManager.JUMP_ANIMATION, jump);             
     }
+    public void TurnAnimation(bool turn)
+    {
+        _anim.SetBool(TagManager.TURN_ANIMATION, turn);
+    }
 }

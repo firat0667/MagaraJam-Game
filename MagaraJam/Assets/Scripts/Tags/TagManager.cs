@@ -30,6 +30,8 @@ public class TagManager
     public static string RANDOM_PARAMETER = "Random";
     public static string ENEMY_MOVE_ANIMATION = "Move";
     public static string JUMP_ANIMATION = "Jump";
+    public static string TURN_ANIMATION = "Turn";
+
 
     // LEVEL NAMES
     public static string LEVEL_1_NAME = "Gameplay 1";
