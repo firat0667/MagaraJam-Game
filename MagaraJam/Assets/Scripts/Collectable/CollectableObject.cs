@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CollectableObject : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D target)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (target.tag == TagManager.PLAYER_TAG || target.tag == TagManager.PLAYER_HEALTH_TAG)
+        if (collision.gameObject.tag == TagManager.PLAYER_TAG || collision.gameObject.tag == TagManager.PLAYER_HEALTH_TAG)
         {
 
             GameplayController.instance.CoinCount++;
@@ -15,6 +15,5 @@ public class CollectableObject : MonoBehaviour
             gameObject.SetActive(false);
 
         }
-
     }
 }
