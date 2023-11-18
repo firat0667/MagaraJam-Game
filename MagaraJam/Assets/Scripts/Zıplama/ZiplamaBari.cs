@@ -100,7 +100,7 @@ public class ZiplamaBari : MonoBehaviour
         if (collision.gameObject.CompareTag("Zemin"))
         {
             GroundCheck = false;
-            animasyon.jumpAnimation(false);
+         //   animasyon.jumpAnimation(false);
         }
     }
     //IEnumerator jumpAnimasyonu()
