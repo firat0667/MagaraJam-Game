@@ -58,4 +58,11 @@ public class PlayerHealth : MonoBehaviour
         }
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag==TagManager.ENEMY_BULLET)
+        {
+            DealDamage(1);
+        }
+    }
 }
