@@ -20142,6 +20142,9 @@ MonoBehaviour:
   - {fileID: 4809711798752927207}
   - {fileID: 8502899760286148246}
   EnemyDamage: {fileID: 493366365739183498}
+  EnemyType: 0
+  Explosion: {fileID: 0}
+  MoneyPersantance: 3
 --- !u!114 &420102432128462034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30021,7 +30024,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000059604645, y: -0.055815995}
+  m_Offset: {x: -0.000000059604645, y: -0.102103114}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -30032,7 +30035,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2759997}
+  m_Size: {x: 1, y: 1.5907524}
   m_EdgeRadius: 0
 --- !u!1 &5871023005580511054
 GameObject:
