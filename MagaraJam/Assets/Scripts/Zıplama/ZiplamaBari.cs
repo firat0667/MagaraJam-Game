@@ -6,11 +6,11 @@ public class ZiplamaBari : MonoBehaviour
 {
     public static ZiplamaBari Instance;
 
-    float maxZiplama = 100;
-    float ZiplamaSeviyesi = 0;
+   public float maxZiplama = 100;
+   public float ZiplamaSeviyesi = 0;
     float GercekScale;
-    float animasyonYavasligi = 1f;
-    float artisSeviyesi = 80f;
+   public float animasyonYavasligi = 1f;
+   public float artisSeviyesi = 80f;
     [SerializeField] private bool GroundCheck = false;
     [SerializeField] Animasyon animasyon;
     private bool _isJumpable;

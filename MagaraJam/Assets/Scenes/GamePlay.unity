@@ -879,6 +879,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bda9fd6452b9474a8b05af1457a070a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxZiplama: 100
+  ZiplamaSeviyesi: 0
+  animasyonYavasligi: 1
+  artisSeviyesi: 80
   GroundCheck: 0
   animasyon: {fileID: 0}
   _blueBar: {fileID: 397714376}
