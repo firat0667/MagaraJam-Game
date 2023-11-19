@@ -8,38 +8,17 @@ using Unity.VisualScripting;
 public class CoolDownMEthod : MonoBehaviour
 {
     [SerializeField] Image imageCoolDown;
-    public float time = 0f;
-    private float timer = 4f;
-    public bool skillAvaliable = false;
-
-    private void Start()
-    {
-       imageCoolDown.fillAmount = 1f;
-    }
-
+    public float time = 4f;
+    public float timer = 4f;
     private void Update()
     {
         time += 1f * Time.deltaTime;
-        Debug.Log(time);
 
-        imageCoolDown.fillAmount -= time * Time.deltaTime / timer/2;
+        imageCoolDown.fillAmount -= time * Time.deltaTime / timer/2f;
 
-        if(time >= timer)
+        if (Input.GetKeyDown(KeyCode.E) && lazer.skillavaliable==true) 
         {
-            time = timer;
-            skillAvaliable = true;
-
-        }
-        if (time < timer)
-        {
-            skillAvaliable = false;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.E) && skillAvaliable == true) 
-        {
-           imageCoolDown.fillAmount = 1f;
-
+            imageCoolDown.fillAmount = 1f;
         }
     }
 }
