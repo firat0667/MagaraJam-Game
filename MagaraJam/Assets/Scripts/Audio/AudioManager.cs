@@ -62,7 +62,7 @@ public class AudioManager : MonoBehaviour
     public void ZombieAttackSound()
     {
         int index = Random.Range(0, EnemyAttack_Clip.Length);
-        Enemy_Attack_AudioSource.PlayOneShot(EnemyAttack_Clip[index], 1.0f);
+       // Enemy_Attack_AudioSource.PlayOneShot(EnemyAttack_Clip[index], 1.0f);
     }
 
     public void FenceExplosion()
