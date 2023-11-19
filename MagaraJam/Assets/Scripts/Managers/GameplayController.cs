@@ -50,9 +50,10 @@ public class GameplayController : MonoBehaviour
 
     public int Step_Count = 100;
     public Slider ExpSlider;
-
-
-
+    public GameObject TextPanel;
+    public Text Timer;
+    public float _time;
+    public string SceneName;
    
     [HideInInspector]
     public int CoinCount;
@@ -134,6 +135,14 @@ public class GameplayController : MonoBehaviour
             CountPlayerMovement();
         }
         CoinText.text = CoinValue.ToString();
+        _time -= Time.deltaTime*1f;
+        Timer.text=_time.ToString("F2");
+        if (_time <= 0)
+        {
+            SceneManager.LoadScene(SceneName);
+        }
+        
+
     }
 
     void CountPlayerMovement()

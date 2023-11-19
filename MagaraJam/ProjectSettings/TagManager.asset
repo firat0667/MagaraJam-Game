@@ -15,6 +15,7 @@ TagManager:
   - ZombieHealth
   - EnemyBullet
   - EnemyRocket
+  - Well
   layers:
   - Default
   - TransparentFX

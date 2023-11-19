@@ -66,7 +66,6 @@ public class DialogSystem : MonoBehaviour
         dialogText.text = "";
         index = 0;
         dialogPanel.SetActive(false);
-
     }
 
     IEnumerator Typing()

@@ -171,6 +171,29 @@ public class EnemyController : MonoBehaviour
             canAttack = true;
 
         }
+        if (target.gameObject.CompareTag("Well"))
+        {
+            transform.localScale = new Vector3(1, 0.2f, 1);
+            _enemy_Alive = false;
+            _enemy_Animation.Dead();
+            for (int i = 0; i < Collider2D.Length; i++)
+            {
+                Collider2D[i].enabled = false;
+            }
+            StartCoroutine(DeactivateZombie());
+            if (EnemyType == EnemyType.Fly)
+            {
+                gameObject.transform.localScale = Vector3.one * -1f;
+                Instantiate(Explosion, transform.position, Quaternion.identity);
+                _rigidbody2D.constraints = RigidbodyConstraints2D.None;
+                _rigidbody2D.gravityScale = 1f;
+                GameplayController.instance.ExpIncrease(10);
+            }
+            else
+            {
+                GameplayController.instance.ExpIncrease(5);
+            }
+        }
 
         if (target.tag == TagManager.BULLET_TAG || target.tag == TagManager.ROCKET_MISSILE_TAG)
         {
