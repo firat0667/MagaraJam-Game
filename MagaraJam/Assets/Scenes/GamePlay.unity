@@ -1072,6 +1072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31c6a949c8b01a46bdc363b06a6d6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CoinText: {fileID: 0}
+  CoinValue: 0
   bullet_And_BulletFX_Created: 0
   rocket_Bullet_Created: 0
   PlayerAlive: 0
@@ -1752,7 +1754,7 @@ MonoBehaviour:
   - {fileID: 5838749937498720426, guid: ef1d2b89ba22e7e48a50f32daba6bd44, type: 3}
   _y_Spawn_Pos_Min: 2
   y_Spawn_Pos_Max: 0
-  _groundYpos: -4.5
+  _groundYpos: 5
 --- !u!4 &1793986546
 Transform:
   m_ObjectHideFlags: 0

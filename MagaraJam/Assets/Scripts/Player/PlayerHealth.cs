@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(collision.tag==TagManager.ENEMY_BULLET)
         {
-            DealDamage(1);
+            DealDamage(5);
         }
     }
 }

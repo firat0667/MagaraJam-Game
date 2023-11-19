@@ -84,7 +84,7 @@ public class ZiplamaBari : MonoBehaviour
             _rigidbody2.AddForce(new Vector2(0,ZiplamaSeviyesi * 20));
             ZiplamaSeviyesi = 0;
             //jumpAnimasyonu();
-            animasyon.jumpAnimation(true);
+        //    animasyon.jumpAnimation(true);
         }
     }
 

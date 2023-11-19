@@ -23,7 +23,8 @@ public class GameplayController : MonoBehaviour
 {
     [Header("Elements")]
     public static GameplayController instance;
-
+    public Text CoinText;
+    public int CoinValue = 0;
     [HideInInspector]
     public bool bullet_And_BulletFX_Created, rocket_Bullet_Created;
 
@@ -102,7 +103,7 @@ public class GameplayController : MonoBehaviour
         {
             CountPlayerMovement();
         }
-
+        CoinText.text = CoinValue.ToString();
     }
 
     void CountPlayerMovement()

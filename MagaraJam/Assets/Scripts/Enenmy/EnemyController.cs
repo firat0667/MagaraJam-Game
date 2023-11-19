@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyType
+{
+    Ground,
+    Fly
+}
 public class EnemyController : MonoBehaviour
 {
     private EnemyMovement _enemy_Movement;
@@ -24,6 +29,8 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     public Collider2D[] Collider2D;
     public EnemyDamage EnemyDamage;
+    public EnemyType EnemyType;
+    public GameObject Explosion;
     // Use this for initialization
     void Start()
     {
@@ -120,6 +127,7 @@ public class EnemyController : MonoBehaviour
         if (Random.Range(0, 10) > 6)
         {
             Instantiate(coinCollectable, transform.position, Quaternion.identity);
+            GameplayController.instance.CoinValue+=5;
         }
 
         gameObject.SetActive(false);
@@ -185,6 +193,13 @@ public class EnemyController : MonoBehaviour
                     Collider2D[i].enabled = false;
                 }
                 StartCoroutine(DeactivateZombie());
+                if (EnemyType == EnemyType.Fly)
+                {
+                   gameObject.transform.localScale = Vector3.one*-1f;
+                    Instantiate(Explosion, transform.position, Quaternion.identity);
+                    _rigidbody2D.constraints = RigidbodyConstraints2D.None;
+                    _rigidbody2D.gravityScale = 1f;
+                }
 
             }
 

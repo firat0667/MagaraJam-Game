@@ -13,7 +13,7 @@ public class HeliCopterEnemy : MonoBehaviour
     {
         float distanceToPlayer = Vector2.Distance(transform.position, PlayerInputController.Instance.transform.position);
 
-        if (distanceToPlayer <= firingDistance && Time.time > nextFireTime)
+        if (distanceToPlayer <= firingDistance && Time.time > nextFireTime&& PlayerInputController.Instance.transform.position.x<gameObject.transform.position.x)
         {
             FireAtPlayer();
             nextFireTime = Time.time + fireCooldown;
