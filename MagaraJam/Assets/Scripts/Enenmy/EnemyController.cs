@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
     public GameObject Damage_Collider;
 
     public int EnemyHealth = 10;
-    public GameObject fxDead;
+    public GameObject[] fxDead;
 
     private float _timerAttack;
 
@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
 
     public GameObject coinCollectable;
     private Rigidbody2D _rigidbody2D;
-    private Collider2D _collider2D;
+    public Collider2D[] Collider2D;
     public EnemyDamage EnemyDamage;
     // Use this for initialization
     void Start()
@@ -31,7 +31,6 @@ public class EnemyController : MonoBehaviour
         _enemy_Movement = GetComponent<EnemyMovement>();
         _enemy_Animation = GetComponent<EnemyAnimation>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _collider2D = GetComponent<Collider2D>();
 
         _enemy_Alive = true;
 
@@ -65,7 +64,7 @@ public class EnemyController : MonoBehaviour
         if (targetTransform)
         {
 
-            if (Vector3.Distance(targetTransform.position, transform.position) > 1.5f)
+            if (Vector3.Distance(targetTransform.position, transform.position) > 1f)
             {
 
                 _enemy_Movement.Move(targetTransform);
@@ -95,18 +94,26 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    public void ActivateDeadEffect()
+    public void ActivateDeadEffect(int index)
     {
-     GameObject go=Instantiate(fxDead,transform.position,Quaternion.identity);
-        Destroy(go,1f);
+        fxDead[index].SetActive(true);
+
+        if (fxDead[index].GetComponent<ParticleSystem>())
+        {
+            fxDead[index].GetComponent<ParticleSystem>().Play();
+        }
+
     }
 
     IEnumerator DeactivateZombie()
     {
-        ActivateDeadEffect();
         AudioManager.instance.ZombieDieSound();
-        _collider2D.isTrigger=true;
-        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < Collider2D.Length; i++)
+        {
+            Collider2D[i].isTrigger = true;
+        }
+       
+        yield return new WaitForSeconds(2f);
 
         GameplayController.instance.ZombieDied();
 
@@ -173,7 +180,10 @@ public class EnemyController : MonoBehaviour
 
                 _enemy_Alive = false;
                 _enemy_Animation.Dead();
-
+                for (int i = 0; i < Collider2D.Length; i++)
+                {
+                    Collider2D[i].enabled = false;
+                }
                 StartCoroutine(DeactivateZombie());
 
             }
