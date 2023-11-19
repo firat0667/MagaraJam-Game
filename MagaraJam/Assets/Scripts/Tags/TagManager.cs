@@ -16,6 +16,7 @@ public class TagManager
     public static string ENEMY_HEALTH_TAG = "EnemyHealth";
     public static string MELEE_WEAPON_TAG = "MeleeWeapon";
     public static string COIN_TAG = "Coin";
+    public static string ENEMY_BULLET = "EnemyBullet";
 
     // NAMES
     public static string RIGHT_ARM = "ArmR1";
