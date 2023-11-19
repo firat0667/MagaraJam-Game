@@ -5,22 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class pause : MonoBehaviour
 {
-    [SerializeField] GameObject pauseScreen;
-    private void Update()
+   public  void GamePause()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            Time.timeScale = 0f;
-            pauseScreen.SetActive(true);
-            
-        }
+        Time.timeScale = 0;
     }
-    //public void PauseGame()
-    //{
-    //    Time.timeScale = 0f;
-    //}
-    public void UnPauseGame()
+    public void GameReturn()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 1;
     }
 }

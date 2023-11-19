@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 7304502665201797496}
   - component: {fileID: 977552144655111359}
   m_Layer: 5
-  m_Name: Dialog Canvas
+  m_Name: Dialog_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,13 +461,12 @@ MonoBehaviour:
   dialogPanel: {fileID: 7730638954695365838}
   dialogText: {fileID: 3816662929119668268}
   dialogs:
-  - Ner-de-yim ?
-  - "Bu-ra-s\u0131 da ne-re-si ? "
-  - O ge-len sey-ler de ne ?
-  - .........
-  - ....(Savas)
-  - (Savas!!)
-  - "Sa-vas-ma-l\u0131-y\u0131m."
+  - 'Ah sonunda geldim(Gelecek). '
+  - "Kahin robot hakl\u0131ysa gelecekteki ben d\xFCnyaya vahset sac\u0131yor olmal\u0131."
+  - "Labaratuara gidip onu durdurmam laz\u0131m."
+  - O yaklasan seyler de ne?
+  - "Anlas\u0131lan o da beni durdurmak istiyor..."
+  - "Savasmal\u0131y\u0131m!"
   cntButton: {fileID: 4245737006773608144}
   wordSpeed: 0.05
   playerIsClose: 0

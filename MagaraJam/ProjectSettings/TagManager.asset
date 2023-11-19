@@ -16,6 +16,7 @@ TagManager:
   - EnemyBullet
   - EnemyRocket
   - Well
+  - Lazer
   layers:
   - Default
   - TransparentFX
