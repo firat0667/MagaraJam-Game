@@ -24,7 +24,7 @@ public class GameplayController : MonoBehaviour
     [Header("Elements")]
     public static GameplayController instance;
     public Text CoinText;
-    public int CoinValue = 0;
+    [HideInInspector] public int CoinValue;
     [HideInInspector]
     public bool bullet_And_BulletFX_Created, rocket_Bullet_Created;
 
@@ -44,12 +44,14 @@ public class GameplayController : MonoBehaviour
     [Header("Settings")]
     public int Enemy_Count = 20;
     public int timer_Count = 100;
-
+    public int ExpAmount;
    
    
 
     public int Step_Count = 100;
-    
+    public Slider ExpSlider;
+
+
 
    
     [HideInInspector]
@@ -60,10 +62,34 @@ public class GameplayController : MonoBehaviour
     void Awake()
     {
         MakeInstance();
+        // Oyuncunun altın miktarını PlayerPrefs'ten al
+        int savedGold = PlayerPrefs.GetInt("Gold", CoinValue);
+        // Oyuncunun altın miktarını güncelle
+        // Bu örnekte sadece başlangıçtaki miktarla değiştirildi, oyun içinde bu miktarı güncelleyebilirsiniz
+        UpdateGold();
+        CoinValue = savedGold;
     }
+    void UpdateGold()
+    {
+        // Oyuncunun altın miktarını güncelle ve PlayerPrefs'e kaydet
+        PlayerPrefs.SetInt("Gold", CoinValue);
+        PlayerPrefs.Save();
 
+        Debug.Log("Altın Miktarı: " + CoinValue);
+    }
+    // Örneğin, bir altın toplandığında bu fonksiyonu çağırabilirsiniz
+    public void CollectGold(int amount)
+    {
+        // Mevcut altın miktarını al
+        PlayerPrefs.GetInt("Gold", CoinValue);
+        CoinValue += amount;
+        // Güncellenmiş altın miktarını uygula
+        UpdateGold();
+    }
     void Start()
     {
+        ExpSlider.minValue = 0;
+        ExpSlider.maxValue = 100;
         PlayerAlive = true;
 
         if (gameGoal == GameGoal.WALK_TO_GOAL_STEPS)
@@ -95,7 +121,11 @@ public class GameplayController : MonoBehaviour
     {
         instance = null;
     }
-
+    public void ExpIncrease(int amount)
+    {
+        ExpAmount += amount;
+        ExpSlider.value = ExpAmount;
+    }
     void Update()
     {
 

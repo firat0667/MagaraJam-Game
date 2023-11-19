@@ -63,6 +63,12 @@ public class PlayerHealth : MonoBehaviour
         if(collision.tag==TagManager.ENEMY_BULLET)
         {
             DealDamage(5);
+            Destroy(collision.gameObject);
+        }
+        if (collision.tag == TagManager.ENEMY_ROCKET)
+        {
+            DealDamage(10);
+            Destroy(collision.gameObject);
         }
     }
 }

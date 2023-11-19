@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum EnemyType
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
     public EnemyDamage EnemyDamage;
     public EnemyType EnemyType;
     public GameObject Explosion;
+    public int MoneyPersantance=2;
     // Use this for initialization
     void Start()
     {
@@ -54,7 +56,6 @@ public class EnemyController : MonoBehaviour
             targetTransform = fences[Random.Range(0, fences.Length)].transform;
 
         }
-
     }
 
     void Update()
@@ -124,10 +125,10 @@ public class EnemyController : MonoBehaviour
 
         GameplayController.instance.ZombieDied();
 
-        if (Random.Range(0, 10) > 6)
+        if (Random.Range(0, 10) > MoneyPersantance)
         {
             Instantiate(coinCollectable, transform.position, Quaternion.identity);
-            GameplayController.instance.CoinValue+=5;
+            GameplayController.instance.CollectGold(5);
         }
 
         gameObject.SetActive(false);
@@ -199,6 +200,11 @@ public class EnemyController : MonoBehaviour
                     Instantiate(Explosion, transform.position, Quaternion.identity);
                     _rigidbody2D.constraints = RigidbodyConstraints2D.None;
                     _rigidbody2D.gravityScale = 1f;
+                    GameplayController.instance.ExpIncrease(10);
+                }
+                else
+                {
+                    GameplayController.instance.ExpIncrease(5);
                 }
 
             }
