@@ -28,6 +28,10 @@ public class BulletController : MonoBehaviour
     void Update()
     {
         transform.Translate(_direction * _speed * Time.deltaTime);
+        if(PlayerInputController.Instance.transform.position.x+17<gameObject.transform.position.x)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
 

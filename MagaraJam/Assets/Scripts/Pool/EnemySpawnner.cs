@@ -6,16 +6,13 @@ public class EnemySpawnner : MonoBehaviour
 {
     public GameObject EnemyPrefab;
     public Transform spawnPoint;
-    public GameObject fx_Shred;
 
     private GameObject zombie;
     private Transform player;
-
     void Start()
     {
         player = GameObject.FindGameObjectWithTag(TagManager.PLAYER_TAG).transform;
 
-        fx_Shred.SetActive(true);
 
         AudioManager.instance.ZombieRiseSound();
 

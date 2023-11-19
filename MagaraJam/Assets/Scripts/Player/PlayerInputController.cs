@@ -10,9 +10,14 @@ public class PlayerInputController : MonoBehaviour
     public bool canShoot;
 
     private bool isHoldAttack;
-
+    public static PlayerInputController Instance;
     void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+        
         _weaponManager = GetComponent<WeaponManager>();
         canShoot = true;
     }
@@ -25,7 +30,7 @@ public class PlayerInputController : MonoBehaviour
             _weaponManager.SwitchWeapon();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
 
             isHoldAttack = true;

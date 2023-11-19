@@ -8,6 +8,12 @@ TagManager:
   - Bullet
   - RocketMissile
   - FireBullet
+  - Zemin
+  - Coin
+  - Enemy
+  - EnemyHealth
+  - ZombieHealth
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -19,7 +25,7 @@ TagManager:
   - Player
   - EnemyHealth
   - Bullet
-  - 
+  - Ground
   - 
   - 
   - 

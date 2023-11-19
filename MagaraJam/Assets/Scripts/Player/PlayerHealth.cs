@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,10 +12,26 @@ public class PlayerHealth : MonoBehaviour
     public GameObject[] blood_FX;
 
     private PlayerAnimations playerAnim;
+    public Slider Slider;
+    public static PlayerHealth Instace;
 
     void Awake()
     {
+        if (Instace == null)
+            Instace = this;
+        else
+            Destroy(gameObject); 
+
         playerAnim = GetComponentInParent<PlayerAnimations>();
+    }
+    private void Start()
+    {
+        Slider.maxValue = 100;
+        Slider.minValue = 0;
+    }
+    private void Update()
+    {
+        Slider.value = health;
     }
 
     public void DealDamage(int damage)
@@ -40,5 +57,12 @@ public class PlayerHealth : MonoBehaviour
 
         }
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag==TagManager.ENEMY_BULLET)
+        {
+            DealDamage(1);
+        }
     }
 }
