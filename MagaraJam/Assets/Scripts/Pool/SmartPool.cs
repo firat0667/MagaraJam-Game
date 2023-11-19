@@ -18,6 +18,7 @@ public class SmartPool : MonoBehaviour
   [SerializeField]  private float _y_Spawn_Pos_Min = 0, y_Spawn_Pos_Max = 2f;
   [SerializeField]  private float _groundYpos;
     private Camera _mainCamera;
+    public bool IsEnemyReady;
 
     void Awake()
     {
@@ -201,54 +202,56 @@ public class SmartPool : MonoBehaviour
 
     void StartSpawningEnemies()
     {
-
-        if (GameplayController.instance.gameGoal == GameGoal.DEFEND_FENCE)
+        if (IsEnemyReady)
         {
-
-            float xPos = _mainCamera.transform.position.x;
-            xPos += 15f;
-
-            float a = Random.Range(0,4);
-            if (a == 0)
+            if (GameplayController.instance.gameGoal == GameGoal.DEFEND_FENCE)
             {
-                float flyingPos = Random.Range(_y_Spawn_Pos_Min, y_Spawn_Pos_Max);
-                Instantiate(FlyingEnemies[Random.Range(0, Enemies.Length)],
-                new Vector3(xPos, flyingPos, 0f), Quaternion.identity);
+
+                float xPos = _mainCamera.transform.position.x;
+                xPos += 15f;
+
+                float a = Random.Range(0, 4);
+                if (a == 0)
+                {
+                    float flyingPos = Random.Range(_y_Spawn_Pos_Min, y_Spawn_Pos_Max);
+                    Instantiate(FlyingEnemies[Random.Range(0, Enemies.Length)],
+                    new Vector3(xPos, flyingPos, 0f), Quaternion.identity);
+                }
+                else
+                {
+                    float groundpos = _groundYpos;
+                    Instantiate(Enemies[Random.Range(0, Enemies.Length)],
+                    new Vector3(xPos, groundpos, 0f), Quaternion.identity);
+                }
             }
-            else
+
+            if (GameplayController.instance.gameGoal == GameGoal.KILL_ENEMY ||
+               GameplayController.instance.gameGoal == GameGoal.TIMER_COUNTDOWN ||
+               GameplayController.instance.gameGoal == GameGoal.WALK_TO_GOAL_STEPS)
             {
-                float groundpos = _groundYpos;
+
+                float xPos = _mainCamera.transform.position.x;
+
+                if (Random.Range(0, 2) > 0)
+                {
+                    xPos += Random.Range(10f, 15f);
+                }
+                else
+                {
+                    xPos -= Random.Range(10f, 15f);
+                }
+
+                float yPos = Random.Range(_y_Spawn_Pos_Min, y_Spawn_Pos_Max);
+
                 Instantiate(Enemies[Random.Range(0, Enemies.Length)],
-                new Vector3(xPos, groundpos, 0f), Quaternion.identity);
+                            new Vector3(xPos, yPos, 0f), Quaternion.identity);
+
             }
-        }
 
-        if (GameplayController.instance.gameGoal == GameGoal.KILL_ENEMY ||
-           GameplayController.instance.gameGoal == GameGoal.TIMER_COUNTDOWN ||
-           GameplayController.instance.gameGoal == GameGoal.WALK_TO_GOAL_STEPS)
-        {
-
-            float xPos = _mainCamera.transform.position.x;
-
-            if (Random.Range(0, 2) > 0)
+            if (GameplayController.instance.gameGoal == GameGoal.GAME_OVER)
             {
-                xPos += Random.Range(10f, 15f);
+                CancelInvoke("StartSpawningZombies");
             }
-            else
-            {
-                xPos -= Random.Range(10f, 15f);
-            }
-
-            float yPos = Random.Range(_y_Spawn_Pos_Min, y_Spawn_Pos_Max);
-
-            Instantiate(Enemies[Random.Range(0, Enemies.Length)],
-                        new Vector3(xPos, yPos, 0f), Quaternion.identity);
-
-        }
-
-        if (GameplayController.instance.gameGoal == GameGoal.GAME_OVER)
-        {
-            CancelInvoke("StartSpawningZombies");
         }
 
     }
