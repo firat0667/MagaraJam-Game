@@ -208,7 +208,7 @@ public class SmartPool : MonoBehaviour
             float xPos = _mainCamera.transform.position.x;
             xPos += 15f;
 
-            float a = Random.Range(0,2);
+            float a = Random.Range(0,4);
             if (a == 0)
             {
                 float flyingPos = Random.Range(_y_Spawn_Pos_Min, y_Spawn_Pos_Max);

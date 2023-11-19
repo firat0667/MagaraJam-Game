@@ -242,7 +242,7 @@ PrefabInstance:
     - target: {fileID: 4074640091235875127, guid: 3df49ea8e7faebe4b8a12e885fc742f5, type: 3}
       propertyPath: lazer
       value: 
-      objectReference: {fileID: 1400459805}
+      objectReference: {fileID: 0}
     - target: {fileID: 4516770604436992824, guid: 3df49ea8e7faebe4b8a12e885fc742f5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -256,6 +256,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3df49ea8e7faebe4b8a12e885fc742f5, type: 3}
+--- !u!1 &424027777 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4529186016788498665, guid: af00a3a870bc7c244b101803b3841522, type: 3}
+  m_PrefabInstance: {fileID: 1337029309}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &815152664
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,24 +587,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4529186016788498665, guid: af00a3a870bc7c244b101803b3841522, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1400459810}
   m_SourcePrefab: {fileID: 100100000, guid: af00a3a870bc7c244b101803b3841522, type: 3}
 --- !u!4 &1400459804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7907007420998350674, guid: af00a3a870bc7c244b101803b3841522, type: 3}
   m_PrefabInstance: {fileID: 1337029309}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1400459805 stripped
+--- !u!114 &1400459810
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8155972439694695972, guid: af00a3a870bc7c244b101803b3841522, type: 3}
-  m_PrefabInstance: {fileID: 1337029309}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 424027777}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ac4b690395a0d446b334bb5874a6df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Lazer: {fileID: 8732433922282867162, guid: 46a3240c34886604695fcea839f65238, type: 3}
+  pos: {fileID: 1935617645}
+  CoolDown: {fileID: 1890968469}
 --- !u!224 &1890968468 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3230407738183703649, guid: 3df49ea8e7faebe4b8a12e885fc742f5, type: 3}
@@ -676,3 +688,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1935617645 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7919550140513322626, guid: af00a3a870bc7c244b101803b3841522, type: 3}
+  m_PrefabInstance: {fileID: 1337029309}
+  m_PrefabAsset: {fileID: 0}
