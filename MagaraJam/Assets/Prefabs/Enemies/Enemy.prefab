@@ -228,9 +228,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage_Collider: {fileID: 6728816975067201237}
   EnemyHealth: 10
-  fxDead: {fileID: 1343858734372316, guid: 9a55c3ad4a31c81468287eb939ea1fa5, type: 3}
+  fxDead:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   coinCollectable: {fileID: 762655481749559548, guid: 9c70861d7d33c3f46b62bb8243326f0a, type: 3}
+  Collider2D: []
   EnemyDamage: {fileID: 6001414885843736492}
+  EnemyType: 0
+  Explosion: {fileID: 0}
+  MoneyPersantance: 3
 --- !u!50 &1008056516166771737
 Rigidbody2D:
   serializedVersion: 4

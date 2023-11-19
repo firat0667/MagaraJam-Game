@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,7 +24,8 @@ public class GameplayController : MonoBehaviour
 {
     [Header("Elements")]
     public static GameplayController instance;
-
+    public Text CoinText;
+    [HideInInspector] public int CoinValue;
     [HideInInspector]
     public bool bullet_And_BulletFX_Created, rocket_Bullet_Created;
 
@@ -43,28 +45,60 @@ public class GameplayController : MonoBehaviour
     [Header("Settings")]
     public int Enemy_Count = 20;
     public int timer_Count = 100;
-
+    public int ExpAmount;
    
    
 
     public int Step_Count = 100;
-    
-
+    public Slider ExpSlider;
+    public GameObject TextPanel;
+    public Text Timer;
+    public float _time;
+    public string SceneName;
    
     [HideInInspector]
     public int CoinCount;
 
     public GameObject PausePanel, GameOverPanel;
-
+    private AbilityPanel _abilityPanel;
+    public GameObject DialogPanel;
+    public GameObject Player;
+    private bool _timerready;
     void Awake()
     {
         MakeInstance();
+        // Oyuncunun altın miktarını PlayerPrefs'ten al
+        int savedGold = PlayerPrefs.GetInt("Gold", CoinValue);
+        // Oyuncunun altın miktarını güncelle
+        // Bu örnekte sadece başlangıçtaki miktarla değiştirildi, oyun içinde bu miktarı güncelleyebilirsiniz
+        UpdateGold();
+        CoinValue = savedGold;
     }
+    
+    void UpdateGold()
+    {
+        // Oyuncunun altın miktarını güncelle ve PlayerPrefs'e kaydet
+        PlayerPrefs.SetInt("Gold", CoinValue);
+        PlayerPrefs.Save();
 
+        Debug.Log("Altın Miktarı: " + CoinValue);
+    }
+    // Örneğin, bir altın toplandığında bu fonksiyonu çağırabilirsiniz
+    public void CollectGold(int amount)
+    {
+        // Mevcut altın miktarını al
+        PlayerPrefs.GetInt("Gold", CoinValue);
+        CoinValue += amount;
+        // Güncellenmiş altın miktarını uygula
+        UpdateGold();
+    }
     void Start()
     {
+        Player.SetActive(false);
+        ExpSlider.minValue = 0;
+        ExpSlider.maxValue = 100;
         PlayerAlive = true;
-
+        _abilityPanel=GetComponent<AbilityPanel>();
         if (gameGoal == GameGoal.WALK_TO_GOAL_STEPS)
         {
 
@@ -77,7 +111,7 @@ public class GameplayController : MonoBehaviour
 
         if (gameGoal == GameGoal.TIMER_COUNTDOWN || gameGoal == GameGoal.DEFEND_FENCE)
         {
-            Timer_Text.text = timer_Count.ToString();
+        //    Timer_Text.text = timer_Count.ToString();
 
             InvokeRepeating("TimerCountdown", 0f, 1f);
 
@@ -94,14 +128,34 @@ public class GameplayController : MonoBehaviour
     {
         instance = null;
     }
-
+    public void ExpIncrease(int amount)
+    {
+        ExpAmount += amount;
+        ExpSlider.value = ExpAmount;
+    }
     void Update()
     {
+        if (!DialogPanel.activeInHierarchy)
+        {
+            Player.SetActive(true);
+            SmartPool.instance.IsEnemyReady = true;
+            _timerready = true;
+        }
 
         if (gameGoal == GameGoal.WALK_TO_GOAL_STEPS)
         {
             CountPlayerMovement();
         }
+        CoinText.text = CoinValue.ToString();
+        if(_timerready)
+        _time -= Time.deltaTime*1f;
+        Timer.text=_time.ToString("F2");
+        if (_time <= 0)
+        {
+            SceneManager.LoadScene(SceneName);
+        }
+        if (ExpAmount >= 99)
+            _abilityPanel.openPanel();
 
     }
 
@@ -169,7 +223,7 @@ public class GameplayController : MonoBehaviour
 
         timer_Count--;
 
-        Timer_Text.text = timer_Count.ToString();
+     //   Timer_Text.text = timer_Count.ToString();
 
         if (timer_Count <= 0)
         {

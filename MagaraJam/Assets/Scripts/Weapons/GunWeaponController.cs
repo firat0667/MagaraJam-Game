@@ -16,6 +16,7 @@ public class GunWeaponController : WeaponController
     private WaitForSeconds wait_Time = new WaitForSeconds(0.02f);
     private WaitForSeconds fire_ColliderWait = new WaitForSeconds(0.02f);
 
+
     void Start()
     {
         // create bullets

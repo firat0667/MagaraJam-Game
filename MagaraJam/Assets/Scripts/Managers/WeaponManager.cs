@@ -22,6 +22,7 @@ public class WeaponManager : MonoBehaviour
     private bool _isShooting;
 
     public GameObject MeleeDamagePoint;
+    public static WeaponManager instance;
     
     void Awake()
     {
@@ -29,8 +30,11 @@ public class WeaponManager : MonoBehaviour
 
         LoadActiveWeapons();
 
-        _current_Weapon_Index = 1;
-
+        _current_Weapon_Index = 0;
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
     }
 
     void Start()
@@ -38,7 +42,7 @@ public class WeaponManager : MonoBehaviour
         _armController = GetComponentsInChildren<PlayerArmController>();
 
         // set the first weapon to be pistol
-        ChangeWeapon(Weapons_Unlocked[1]);
+        ChangeWeapon(Weapons_Unlocked[0]);
 
         playerAnim.SwitchWeaponAnimation(
          (int)Weapons_Unlocked[_current_Weapon_Index].DefaultConfing.TypeWeapon
@@ -49,13 +53,6 @@ public class WeaponManager : MonoBehaviour
     void LoadActiveWeapons()
     {
         Weapons_Unlocked.Add(Total_Weapons[0]);
-
-        for (int i = 1; i < Total_Weapons.Length; i++)
-        {
-
-            Weapons_Unlocked.Add(Total_Weapons[i]);
-
-        }
     }
 
     public void SwitchWeapon()

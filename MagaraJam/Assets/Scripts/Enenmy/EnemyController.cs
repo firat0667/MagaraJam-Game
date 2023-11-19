@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+public enum EnemyType
+{
+    Ground,
+    Fly
+}
 public class EnemyController : MonoBehaviour
 {
     private EnemyMovement _enemy_Movement;
@@ -14,7 +20,7 @@ public class EnemyController : MonoBehaviour
     public GameObject Damage_Collider;
 
     public int EnemyHealth = 10;
-    public GameObject fxDead;
+    public GameObject[] fxDead;
 
     private float _timerAttack;
 
@@ -22,8 +28,11 @@ public class EnemyController : MonoBehaviour
 
     public GameObject coinCollectable;
     private Rigidbody2D _rigidbody2D;
-    private Collider2D _collider2D;
+    public Collider2D[] Collider2D;
     public EnemyDamage EnemyDamage;
+    public EnemyType EnemyType;
+    public GameObject Explosion;
+    public int MoneyPersantance=2;
     // Use this for initialization
     void Start()
     {
@@ -31,7 +40,6 @@ public class EnemyController : MonoBehaviour
         _enemy_Movement = GetComponent<EnemyMovement>();
         _enemy_Animation = GetComponent<EnemyAnimation>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _collider2D = GetComponent<Collider2D>();
 
         _enemy_Alive = true;
 
@@ -48,7 +56,6 @@ public class EnemyController : MonoBehaviour
             targetTransform = fences[Random.Range(0, fences.Length)].transform;
 
         }
-
     }
 
     void Update()
@@ -77,9 +84,14 @@ public class EnemyController : MonoBehaviour
                 {
 
                     _enemy_Animation.Attack();
-                    PlayerHealth.Instace.DealDamage(EnemyDamage.damage);
-                    StartCoroutine(DeactivateZombie());
-                    canAttack = false;
+
+                    _timerAttack += Time.deltaTime;
+
+                    if (_timerAttack > 0.45f)
+                    {
+                        _timerAttack = 0f;
+                        AudioManager.instance.ZombieAttackSound();
+                    }
 
 
                 }
@@ -90,25 +102,33 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    public void ActivateDeadEffect()
+    public void ActivateDeadEffect(int index)
     {
-     GameObject go=Instantiate(fxDead,transform.position,Quaternion.identity);
-        Destroy(go,1f);
+        fxDead[index].SetActive(true);
+
+        if (fxDead[index].GetComponent<ParticleSystem>())
+        {
+            fxDead[index].GetComponent<ParticleSystem>().Play();
+        }
+
     }
 
     IEnumerator DeactivateZombie()
     {
-        ActivateDeadEffect();
         AudioManager.instance.ZombieDieSound();
-        _rigidbody2D.GetComponent<Rigidbody2D>().gravityScale=1.0f;
-        _collider2D.isTrigger=true;
-        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < Collider2D.Length; i++)
+        {
+            Collider2D[i].isTrigger = true;
+        }
+       
+        yield return new WaitForSeconds(2f);
 
         GameplayController.instance.ZombieDied();
 
-        if (Random.Range(0, 10) > 6)
+        if (Random.Range(0, 10) > MoneyPersantance)
         {
             Instantiate(coinCollectable, transform.position, Quaternion.identity);
+            GameplayController.instance.CollectGold(5);
         }
 
         gameObject.SetActive(false);
@@ -151,6 +171,51 @@ public class EnemyController : MonoBehaviour
             canAttack = true;
 
         }
+        if (target.gameObject.CompareTag("Well"))
+        {
+            transform.localScale = new Vector3(1, 0.2f, 1);
+            _enemy_Alive = false;
+            _enemy_Animation.Dead();
+            for (int i = 0; i < Collider2D.Length; i++)
+            {
+                Collider2D[i].enabled = false;
+            }
+            StartCoroutine(DeactivateZombie());
+            if (EnemyType == EnemyType.Fly)
+            {
+                gameObject.transform.localScale = Vector3.one * -1f;
+                Instantiate(Explosion, transform.position, Quaternion.identity);
+                _rigidbody2D.constraints = RigidbodyConstraints2D.None;
+                _rigidbody2D.gravityScale = 1f;
+                GameplayController.instance.ExpIncrease(10);
+            }
+            else
+            {
+                GameplayController.instance.ExpIncrease(5);
+            }
+        }
+        if (target.gameObject.CompareTag("Lazer"))
+        {
+            _enemy_Alive = false;
+            _enemy_Animation.Dead();
+            for (int i = 0; i < Collider2D.Length; i++)
+            {
+                Collider2D[i].enabled = false;
+            }
+            StartCoroutine(DeactivateZombie());
+            if (EnemyType == EnemyType.Fly)
+            {
+                gameObject.transform.localScale = Vector3.one * -1f;
+                Instantiate(Explosion, transform.position, Quaternion.identity);
+                _rigidbody2D.constraints = RigidbodyConstraints2D.None;
+                _rigidbody2D.gravityScale = 1f;
+                GameplayController.instance.ExpIncrease(10);
+            }
+            else
+            {
+                GameplayController.instance.ExpIncrease(5);
+            }
+        }
 
         if (target.tag == TagManager.BULLET_TAG || target.tag == TagManager.ROCKET_MISSILE_TAG)
         {
@@ -169,8 +234,23 @@ public class EnemyController : MonoBehaviour
 
                 _enemy_Alive = false;
                 _enemy_Animation.Dead();
-
+                for (int i = 0; i < Collider2D.Length; i++)
+                {
+                    Collider2D[i].enabled = false;
+                }
                 StartCoroutine(DeactivateZombie());
+                if (EnemyType == EnemyType.Fly)
+                {
+                   gameObject.transform.localScale = Vector3.one*-1f;
+                    Instantiate(Explosion, transform.position, Quaternion.identity);
+                    _rigidbody2D.constraints = RigidbodyConstraints2D.None;
+                    _rigidbody2D.gravityScale = 1f;
+                    GameplayController.instance.ExpIncrease(10);
+                }
+                else
+                {
+                    GameplayController.instance.ExpIncrease(5);
+                }
 
             }
 

@@ -13,6 +13,10 @@ TagManager:
   - Enemy
   - EnemyHealth
   - ZombieHealth
+  - EnemyBullet
+  - EnemyRocket
+  - Well
+  - Lazer
   layers:
   - Default
   - TransparentFX

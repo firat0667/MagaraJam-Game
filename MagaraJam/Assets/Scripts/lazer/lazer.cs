@@ -27,9 +27,7 @@ public class lazer : MonoBehaviour
 
 
     IEnumerator LazerCikartma()
-    {                    
-        GameObject laser= Instantiate(Lazer, pos.position, Quaternion.identity);
         yield return new WaitForSeconds(1f);
-        Destroy(laser);
+        Lazer.gameObject.SetActive(false);
     }
 }
